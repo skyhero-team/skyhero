@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "ar-drone": "^0.3.3",
+    "ar-drone-png-stream": "^2.0.0",
     "azure-arm-cognitiveservices": "^2.0.0",
     "cognitive-services": "^1.0.0",
+    "express": "^4.16.2",
     "ms-rest-azure": "^2.5.4",
     "promise-retry": "^1.1.1",
     "sharp": "^0.19.1",
