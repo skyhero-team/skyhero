@@ -85,10 +85,6 @@ app.post('/', (req, res) => {
       console.log('drone: take off');
       this.takeoff();
     })
-    .after(6000, function() {
-      this.up(0.1);
-      // this.animate('yawShake', 2000);
-    })
     .after(4000, function() {
        this.stop();
     })
