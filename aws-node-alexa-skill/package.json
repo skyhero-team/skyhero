@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "description": "Drone Skill.",
   "author": "Guido García <palmerabollo@gmail.com>",
-  "license": "Apache2"
+  "license": "Apache2",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
 }

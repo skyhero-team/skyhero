@@ -65,3 +65,7 @@ process.on('SIGINT', function() {
 
   process.exit(0);
 });
+
+app.post('/test', (req, res) => {
+  res.send('Hello World!');
+})
