@@ -19,10 +19,11 @@ if (!process.env.DRONE_IP) {
 const client  = drone.createClient({
   ip: process.env.DRONE_IP || DRONE_IP_DEFAULT,
   frameRate: 1,
-  imageSize: "640x360" // 480x270, 640x360 (default)
+  imageSize: "640x360" // 480x270, 640x360 (default), 1280x720
 });
 
-require('ar-drone-png-stream')(client, { port: 8000 }); // expose the stream to the public UI
+// disabled for now
+// require('ar-drone-png-stream')(client, { port: 8000 }); // expose the stream to the public UI
 
 const pngStream = client.getPngStream();
 
@@ -34,6 +35,8 @@ let analyzing = false; // we don't want to analyze more than 1 image at the same
 // init image streaming
 if (IMAGE_PROCESSING_ENABLED) {
   pngStream.on('data', (buffer) => {
+    sharp(buffer).toFile('./public/drone.png');
+
     // This is a protection to avoid the 20 req/sec imposed by Face API
     imagesProcessed++;
     if (imagesProcessed % 5 !== 0) {
@@ -42,7 +45,7 @@ if (IMAGE_PROCESSING_ENABLED) {
 
     if (!analyzing) {
       analyzing = true;
-      console.log('New image received from the dron: anzlyzing');
+      console.log('New image received from the drone: anzlyzing');
 
       // XXX we could use the buffer without an intermediate local file (might be faster)
       const fileName = './images/drone_' + Date.now() + '.png';
@@ -56,7 +59,7 @@ if (IMAGE_PROCESSING_ENABLED) {
                 console.log(faces);
 
                 if (faces.length > 0) {
-                  hightlighter.highlight(fileName, './public/photo.png', faces); // fire & forget
+                  hightlighter.highlight(fileName, './public/people.png', faces); // fire & forget
                 }
               }
 

@@ -5,3 +5,5 @@ node_modules
 *.jpg
 images/*.png
 .credentials
+public/people.png
+public/drone.png
