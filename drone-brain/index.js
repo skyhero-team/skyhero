@@ -1,9 +1,13 @@
+const fs = require('fs');
 const drone = require('ar-drone');
 const sharp = require('sharp');
 const faces = require('./faces');
-
+const hightlighter = require('./hightlighter')
 const express = require('express');
 const app = express();
+
+const HIGHLIGHTED_IMAGE_PATH = `${__dirname}/public/photo.png`;
+fs.unlink(HIGHLIGHTED_IMAGE_PATH, () => { console.log('removed', HIGHLIGHTED_IMAGE_PATH); });
 
 app.use(express.static('public'));
 
@@ -47,9 +51,13 @@ if (IMAGE_PROCESSING_ENABLED) {
         .then(() => {
             faces.findPeople(fileName, (err, faces) => {
               if (err) {
-                console.error('Not able to find people', err);
+                console.error('Not able to process the image', err);
               } else {
                 console.log(faces);
+
+                if (faces.length > 0) {
+                  hightlighter.highlight(fileName, './public/photo.png', faces); // fire & forget
+                }
               }
 
               analyzing = false; // free the token to be able to process another picture
