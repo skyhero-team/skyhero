@@ -12,8 +12,10 @@
   "dependencies": {
     "ar-drone": "^0.3.3",
     "azure-arm-cognitiveservices": "^2.0.0",
-    "face-recognition": "^0.7.0",
+    "cognitive-services": "^1.0.0",
     "ms-rest-azure": "^2.5.4",
-    "sharp": "^0.19.1"
+    "promise-retry": "^1.1.1",
+    "sharp": "^0.19.1",
+    "sleep-promise": "^2.0.0"
   }
 }

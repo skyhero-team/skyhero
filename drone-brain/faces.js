@@ -1,22 +1,36 @@
-// brew install cmake
-// install xquarz
-// brew install openblas
+const cognitiveServices = require('cognitive-services');
 
-const fr = require('face-recognition');
+const config = {
+    apiKey: process.env.FACES_API_KEY || 'xxx',
+    endpoint: 'westcentralus.api.cognitive.microsoft.com'
+};
 
-// const image = fr.loadImage('happy-people-1050x600.jpg');
-const image = fr.loadImage('drone_1520531395020.png');
+const face = new cognitiveServices.face(config);
 
-// const win = new fr.ImageWindow()
-// win.setImage(image)
+const SATYA_NADELLA_IMAGE_URL = "http://s3.amazonaws.com/digitaltrends-uploads-prod/2014/02/Satya-Nadella-quotes.jpg";
 
-const detector = fr.FaceDetector();
+// detect up to 64 faces
+const parameters = {
+    returnFaceId: "true",
+    returnFaceLandmarks: "false",
+    // returnFaceAttributes: "age,gender,headPose,smile,facialHair,glasses"
+};
 
-const faceRectangles = detector.locateFaces(image);
+const headers = {
+    'Content-type': 'application/json'
+};
 
-console.log(faceRectangles);
+const body = {
+    "url": SATYA_NADELLA_IMAGE_URL
+};
 
+face.detect({parameters, headers, body}).then((faces) => {
+    console.log(faces);
+});
 
-// Endpoint: https://westcentralus.api.cognitive.microsoft.com/face/v1.0
-// Key 1: 2f57993394ab4825aff6f1c9986d6c78
-// Key 2: a98300a5c58f4852916a004be53f06e8
+/**
+face.listFaceLists()
+    .then((lists) => {
+        console.log(lists);
+    }).catch((e) => console.error(e));
+*/
