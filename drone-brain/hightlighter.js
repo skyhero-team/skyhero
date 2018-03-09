@@ -14,8 +14,8 @@ function highlight(fileName, targetFileName, faces) {
     .on('parsed', function() {
       faces.forEach(face => {
         this.fillRect(
-          face.faceRectangle.top,
           face.faceRectangle.left,
+          face.faceRectangle.top,
           face.faceRectangle.width,
           face.faceRectangle.height,
           this.colors.green(ALPHA)
