@@ -20,7 +20,7 @@ require('ar-drone-png-stream')(client, { port: 8000 }); // expose the stream to 
 
 const pngStream = client.getPngStream();
 
-const analyzing = false; // we don't want to analyze more than 1 image at the same time
+let analyzing = false; // we don't want to analyze more than 1 image at the same time
 
 // init image streaming
 pngStream.on('data', (buffer) => {
@@ -29,7 +29,7 @@ pngStream.on('data', (buffer) => {
     console.log('New image received from the dron: anzlyzing');
 
     // XXX we could use the buffer without an intermediate local file (might be faster)
-    const fileName = './imagen/drone_' + Date.now() + '.png';
+    const fileName = './images/drone_' + Date.now() + '.png';
     sharp(buffer)
       .toFile(fileName)
       .then(() => {
@@ -70,10 +70,11 @@ app.listen(3000, () => {
 });
 
 process.on('SIGINT', () => {
-  console.log("Gracefully shutting down");
+  console.log('Gracefully shutting down');
 
   // try to land the drone. we don't need an uncontrolled drone killing humans
   if (client) {
+    console.log('Landing drone');
     client.land();
   }
 
