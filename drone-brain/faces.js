@@ -30,10 +30,10 @@ function findPeople(file, callback) {
     };
 
     face.detect({parameters, headers, body})
-    .then(faces => {
-      callback(null, faces);
-    })
-    .catch(err => callback(err));
+        .then(faces => {
+          callback(null, faces);
+        })
+        .catch(err => callback(err));
   });
 }
 

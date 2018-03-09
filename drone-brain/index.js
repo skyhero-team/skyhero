@@ -20,22 +20,34 @@ require('ar-drone-png-stream')(client, { port: 8000 }); // expose the stream to 
 
 const pngStream = client.getPngStream();
 
+const analyzing = false; // we don't want to analyze more than 1 image at the same time
+
 // init image streaming
 pngStream.on('data', (buffer) => {
-  console.log('new image received from the dron');
+  if (!analyzing) {
+    analyzing = true;
+    console.log('New image received from the dron: anzlyzing');
 
-  // XXX we could use the buffer without an intermediate local file
-  const fileName = './imagen/drone_' + Date.now() + '.png';
-  sharp(buffer).toFile(fileName).then(() => {
-    faces.findPeople(fileName, (err, faces) => {
-      if (err) {
-        console.error('Not able to find people', err);
-        return;
-      }
+    // XXX we could use the buffer without an intermediate local file
+    const fileName = './imagen/drone_' + Date.now() + '.png';
+    sharp(buffer)
+      .toFile(fileName)
+      .then(() => {
+          faces.findPeople(fileName, (err, faces) => {
+            if (err) {
+              console.error('Not able to find people', err);
+            } else {
+              console.log(faces);
+            }
 
-      console.log(faces);
-    });
-  })
+            analyzing = false; // free the token to be able to process another picture
+          });
+      })
+      .catch((err) => {
+          console.error('Something went wrong saving the image', err);
+          analyzing = false; // free the token to be able to process another picture
+      });
+  };
 });
 
 app.post('/', (req, res) => {
