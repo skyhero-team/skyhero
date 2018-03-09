@@ -1,4 +1,5 @@
 const cognitiveServices = require('cognitive-services');
+const fs = require('fs');
 
 const config = {
     apiKey: process.env.FACES_API_KEY || 'xxx',
@@ -7,30 +8,39 @@ const config = {
 
 const face = new cognitiveServices.face(config);
 
-const SATYA_NADELLA_IMAGE_URL = "http://s3.amazonaws.com/digitaltrends-uploads-prod/2014/02/Satya-Nadella-quotes.jpg";
+function findPeople(file, callback) {
+    fs.readFile(file, (err, body) => {
+        if (err) {
+            console.error('Not able to read image', err);
+            return callback(err);
+        }
 
-// detect up to 64 faces
-const parameters = {
-    returnFaceId: "true",
-    returnFaceLandmarks: "false",
-    // returnFaceAttributes: "age,gender,headPose,smile,facialHair,glasses"
-};
+        // detect up to 64 faces
+        const parameters = {
+            returnFaceId: "true",
+            returnFaceLandmarks: "false"
+        };
 
-const headers = {
-    'Content-type': 'application/json'
-};
+        const headers = {
+            'Content-type': 'application/octet-stream' // application/json + body with an url field to use an url
+        };
 
-const body = {
-    "url": SATYA_NADELLA_IMAGE_URL
-};
-
-face.detect({parameters, headers, body}).then((faces) => {
-    console.log(faces);
-});
+        face.detect({parameters, headers, body})
+            .then(faces => {
+                callback(null, faces);
+            })
+            .catch(err => callback(err));
+    });
+}
 
 /**
+// TODO use face lists to recognize people
 face.listFaceLists()
     .then((lists) => {
         console.log(lists);
     }).catch((e) => console.error(e));
 */
+
+module.exports = {
+    find
+}
