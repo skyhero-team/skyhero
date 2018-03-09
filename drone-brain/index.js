@@ -28,7 +28,7 @@ pngStream.on('data', (buffer) => {
     analyzing = true;
     console.log('New image received from the dron: anzlyzing');
 
-    // XXX we could use the buffer without an intermediate local file
+    // XXX we could use the buffer without an intermediate local file (might be faster)
     const fileName = './imagen/drone_' + Date.now() + '.png';
     sharp(buffer)
       .toFile(fileName)
@@ -43,7 +43,7 @@ pngStream.on('data', (buffer) => {
             analyzing = false; // free the token to be able to process another picture
           });
       })
-      .catch((err) => {
+      .catch(err => {
           console.error('Something went wrong saving the image', err);
           analyzing = false; // free the token to be able to process another picture
       });
@@ -51,6 +51,8 @@ pngStream.on('data', (buffer) => {
 });
 
 app.post('/', (req, res) => {
+  console.log('Takeoff request received');
+
   client.takeoff();
   client.animateLeds('blinkGreen', 5, 2)
 
@@ -67,8 +69,8 @@ app.listen(3000, () => {
   console.log('Sky Hero app listening on port 3000');
 });
 
-process.on('SIGINT', function() {
-  console.log( "Gracefully shutting down from SIGINT (Ctrl-C)" );
+process.on('SIGINT', () => {
+  console.log("Gracefully shutting down");
 
   // try to land the drone. we don't need an uncontrolled drone killing humans
   if (client) {
