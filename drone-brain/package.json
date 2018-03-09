@@ -1,0 +1,19 @@
+{
+  "name": "drone",
+  "version": "1.0.0",
+  "description": "Drone Brain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ar-drone": "^0.3.3",
+    "azure-arm-cognitiveservices": "^2.0.0",
+    "face-recognition": "^0.7.0",
+    "ms-rest-azure": "^2.5.4",
+    "sharp": "^0.19.1"
+  }
+}
