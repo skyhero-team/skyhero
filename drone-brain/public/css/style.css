@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+a:visited {
+	color: #171717;
+}
+
+.alert.nobg{
+	background: none;
+    webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border-top: 1px solid #484848;
+	border-bottom: 1px solid #484848;
+}
+
+body {
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	padding: 0;
+	overflow: hidden;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: #000;
+}
+
+
+.wrapper{
+	float: left;
+	background-color: #171717;
+	z-index: 100;
+	color: #fff;
+	font-weight: 300;
+	width: 110px;
+	height: 230px;
+	margin-left: 20px;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.navigation {
+	padding: 10px;
+}
+
+.breadcrumb {
+	font-weight: 300;
+	font-size: 9pt;
+	color: #c0c0c0;
+}
+.text {
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.alert{
+	width: 100%;
+	text-align: center;
+	background: #8dbf3e;
+	padding-top: 10px; padding-bottom: 10px;
+	padding-left: 12px; padding-right: 12px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.emergencybutton{
+	font-weight: 400;
+	width: 110px;
+	text-align: center;
+	background: #bb2020;
+	padding-top: 5px; padding-bottom: 10px;
+	padding-left: 12px; padding-right: 12px;
+	margin-top: 23px;
+	margin-left:-10px;
+	webkit-border-bottom-right-radius: 5px;
+    webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.nav {
+	background: #fff;
+	padding-top: 14px;
+	height: 50px;
+	text-align: center;
+	font-weight: 400;
+	color: #171717;
+	text-decoration: none;
+}
+
+#googlemaps { 
+  height: 100%; 
+  width: 100%; 
+  position:absolute; 
+  top: 0; 
+  left: 0; 
+  z-index: -100; /* Set z-index to 0 as it will be on a layer below the contact form */
+}
