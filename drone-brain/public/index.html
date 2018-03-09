@@ -4,6 +4,8 @@
     <title>Sky Hero</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -28,13 +30,18 @@
             </div>
         </div>
     </div>
+    <!-- <img id="people" src="people.png" />
+    <img id="drone" src="drone.png" /> -->
     <div class="wrapper nav">
         <a href="mapview.html">Map View</a>
     </div>
 
-    <iframe src="localhost:8000" style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:-100;">
-        Your browser doesn't support iframes
-    </iframe>
+    <script>
+        setInterval(function() {
+            var d = new Date();
+            $("body").css("background", "url(people.png?" + d.getTime()+ ")");
+        }, 1000);
+    </script>
 </body>
 
 </html>

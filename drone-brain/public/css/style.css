@@ -25,12 +25,10 @@ body {
 	font-family: 'Roboto', sans-serif;
 	padding: 0;
 	overflow: hidden;
-	background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-position: center !important;
+    background-size: cover !important;
     background: #000;
 }
-
 
 .wrapper{
 	float: left;
