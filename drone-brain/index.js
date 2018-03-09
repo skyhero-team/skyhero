@@ -65,17 +65,27 @@ if (IMAGE_PROCESSING_ENABLED) {
 
 app.post('/', (req, res) => {
   console.log('Takeoff request received');
+  res.send('ok alexa');
 
-  client.takeoff();
   client.animateLeds('blinkGreen', 5, 2)
 
   client
-    .after(5000, () => {
+    .after(1000, function() {
+      console.log('drone: take off');
+      this.takeoff();
+    })
+    .after(6000, function() {
+      this.up(0.1);
+      // this.animate('yawShake', 2000);
+    })
+    .after(4000, function() {
+       this.stop();
+    })
+    .after(15000, function() {
+      console.log('land');
       this.land();
-      console.log('Mission finished');
+      console.log('Mission complete');
     });
-
-  res.send('ok alexa');
 });
 
 app.listen(3000, () => {
