@@ -18,7 +18,7 @@ module.exports.takeoff = (event, context, callback) => {
     response: {
       outputSpeech: {
         type: 'PlainText',
-        text: 'Taking off. Here we go',
+        text: 'Hello, hack for good. We are ready to take off.',
       },
       shouldEndSession: true
     },
