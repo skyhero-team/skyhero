@@ -18,9 +18,12 @@ if (!process.env.DRONE_IP) {
 
 const client  = drone.createClient({
   ip: process.env.DRONE_IP || DRONE_IP_DEFAULT,
-  frameRate: 1,
+  frameRate: 5,
   imageSize: "640x360" // 480x270, 640x360 (default), 1280x720
 });
+
+// client.config('general:navdata_demo', 'FALSE');
+// client.on('navdata', console.log);
 
 // disabled for now
 // require('ar-drone-png-stream')(client, { port: 8000 }); // expose the stream to the public UI
@@ -39,7 +42,7 @@ if (IMAGE_PROCESSING_ENABLED) {
 
     // This is a protection to avoid the 20 req/sec imposed by Face API
     imagesProcessed++;
-    if (imagesProcessed % 5 !== 0) {
+    if (imagesProcessed % (5 * 5) !== 0) {
       return;
     }
 
@@ -59,6 +62,7 @@ if (IMAGE_PROCESSING_ENABLED) {
                 console.log(faces);
 
                 if (faces.length > 0) {
+                  // client.animateLeds('blinkGreenRed', 5, 5)
                   hightlighter.highlight(fileName, './public/people.png', faces); // fire & forget
                 }
               }
@@ -81,14 +85,17 @@ app.post('/', (req, res) => {
   client.animateLeds('blinkGreen', 5, 2)
 
   client
-    .after(1000, function() {
+    .after(2000, function() {
       console.log('drone: take off');
       this.takeoff();
     })
-    .after(4000, function() {
-       this.stop();
+    .after(5000, function() {
+       this.up(0.2);
     })
-    .after(15000, function() {
+    .after(1000, function() {
+      this.stop();
+    })
+    .after(20000, function() {
       console.log('land');
       this.land();
       console.log('Mission complete');

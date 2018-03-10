@@ -39,14 +39,6 @@ function findPeople(fileName, callback) {
   });
 }
 
-/**
-// TODO use face lists to recognize people
-face.listFaceLists()
-.then((lists) => {
-  console.log(lists);
-}).catch((e) => console.error(e));
-*/
-
 module.exports = {
   findPeople
 }
