@@ -1,3 +1,7 @@
+// THIS FILE IS A WORK IN PROGRESS
+// WE DIDN'T FINISH IT DURING THE HACKFORGOOD HACKATON
+// OUR INTENTION WAS TO BE ABLE TO IDENTIFY A SPECIFIC PERSON ONLY
+
 const cognitiveServices = require('cognitive-services');
 const fs = require('fs');
 
